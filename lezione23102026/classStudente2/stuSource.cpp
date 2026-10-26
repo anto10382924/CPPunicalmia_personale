@@ -78,3 +78,63 @@ float Stu::getMediaPonderata() const{
     }
     return (float)prodottoV_C/sommaCFU;
 }
+
+bool bestStudents(const Stu studenti[], unsigned numeroStudenti){
+    for(unsigned i=0; i<numeroStudenti; ++i){
+        if (studenti[i].getMediaPonderata() < 28)
+            return false;
+    }
+    return true;
+}
+
+unsigned numeroEsamiAllaLaurea(const Stu studenti[], unsigned numeroStudenti){
+    if (numeroStudenti == 0)
+        return NUM_ESAMI;
+    unsigned max_esami = studenti[0].getEsami_sost();
+    for(unsigned i=1; i<numeroStudenti; ++i){
+        if (max_esami < studenti[i].getEsami_sost())
+            max_esami = studenti[i].getEsami_sost();
+    }
+    return NUM_ESAMI - max_esami;
+}
+
+bool stessiVoti(const Stu& s1, const Stu& s2){      //da finì
+    if (s1.getEsami_sost() != s2.getEsami_sost())
+        return false;
+
+    return true;
+}
+
+string getMatricolaStudenteGiovaneEBravo(const Stu studenti[], unsigned numeroStudenti){    //si può fare con variabile "indicemigliore"
+    Stu migliore;
+    int start = -1;
+    for (unsigned i=0; i<numeroStudenti; ++i){
+        if (studenti[i].getEta() <= 20 && studenti[i].getEsami_sost() >= 3){
+            migliore = studenti[i];
+            start = i;
+            break;
+        }    
+    }
+    if (start == -1)
+        return "---";
+    for (unsigned i=start; i<numeroStudenti; ++i){
+        if (studenti[i].getEta() <= 20 && studenti[i].getEsami_sost() >= 3){
+            if (migliore.getMediaVoti() < studenti[i].getMediaVoti())
+                migliore = studenti[i];
+            if (migliore.getMediaVoti() == studenti[i].getMediaVoti() && migliore.getEta() > studenti[i].getEta())
+                migliore = studenti[i];
+        }
+    }
+    return migliore.getMatricola();
+}
+
+int main(){
+    int k;
+    cout << "Inserire il numero di studenti che si vogliono \n";
+    cin >> k;
+    Stu studenti[k];
+    cout << bestStudents(studenti,k);
+    cout << numeroEsamiAllaLaurea(studenti,k);
+    cout << stessiVoti(studenti[0],studenti[1]);
+    return 0;
+}
