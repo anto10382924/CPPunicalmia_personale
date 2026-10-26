@@ -30,6 +30,11 @@ class programmatore{
         void setSenior(bool);
 
         programmatore& operator=(const programmatore &);
+        unsigned getNumeroProgrammatoriPerNome(const programmatore [], string);
+        const programmatore& getJuniorPiuEsperto(const programmatore []);
+        float getStipendioMedioSenior(const programmatore []);
+        unsigned maxDifferenzaEta(const programmatore []);
+        bool anzianita(const programmatore []);
 };
 
 #endif

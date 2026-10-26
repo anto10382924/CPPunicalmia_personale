@@ -58,7 +58,36 @@ const programmatore& getJuniorPiuEsperto(const programmatore programmatori[]){
     }
 }
 
-int main(){
+float programmatore::getStipendioMedioSenior(const programmatore programmatori[]){
+    int somma = 0;
+    for (unsigned i=0; i < numero_prog; ++i){
+        if (programmatori[i].getSenior() == true){
+            somma += programmatori[i].getStipendio();
+        }
+    }
+    return (float)somma/numero_prog;
+}
 
-    return 0;
+unsigned programmatore::maxDifferenzaEta(const programmatore programmatori[]){
+    unsigned minima = programmatori[0].getEta();
+    unsigned massima = programmatori[0].getEta();
+    for (unsigned i=1; i < numero_prog; ++i){
+        if (programmatori[i].getEta() > massima)
+            massima = programmatori[i].getEta();
+        if (programmatori[i].getEta() < minima)
+            minima = programmatori[i].getEta();
+    }
+    return massima-minima;
+}
+
+bool anzianita(const programmatore programmatori[]){
+    for (unsigned i=0; i<numero_prog; ++i){
+        for (unsigned j=0; j<numero_prog; ++i){
+            if (programmatori[i].getAnniesperienza() > programmatori[j].getAnniesperienza()){
+                if (programmatori[i].getStipendio() <= programmatori[j].getStipendio())
+                    return false;
+            }
+        }
+    }
+    return true;
 }
