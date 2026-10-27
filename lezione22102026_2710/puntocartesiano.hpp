@@ -1,10 +1,15 @@
 #ifndef PUNTOCARTESIANO_H
 #define PUNTOCARTESIANO_H
+using namespace std;
 
 class PuntoCartesiano{
 
-    friend bool operator>(const PuntoCartesiano &P, const PuntoCartesiano &Q);  //la funzione esterna alla classe viene riconosciuta "friend", può accedere direttamente ai dati privati della classe!
-    
+    //è consigliato mettere tutte le funzioni operator di una classe come friend, anziché direttamente come metodi
+
+    friend bool operator>(const PuntoCartesiano &, const PuntoCartesiano &);  //la funzione esterna alla classe viene riconosciuta "friend", può accedere direttamente ai dati privati della classe
+    friend ostream& operator<<(ostream&,const PuntoCartesiano &);  //ostream è il tipo di cout
+    friend istream& operator>>(istream &,PuntoCartesiano &);   //istream è il tipo di cin
+
     private:
         int x;
         int y;

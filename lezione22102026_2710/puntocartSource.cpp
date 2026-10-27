@@ -1,7 +1,6 @@
 #include "puntocartesiano.hpp"
 #include <iostream>
 #include <cmath>
-using namespace std;
 
 PuntoCartesiano::PuntoCartesiano():x(0),y(0){   //: ecc... è la lista di inizializzazione, usabile solo nei costruttori
     cout << "costruttore di base";
@@ -63,9 +62,23 @@ bool PuntoCartesiano::operator==(const PuntoCartesiano &P) const{
     return (this -> x==P.x && this->y==P.y);
 }
 
-bool PuntoCartesiano::operator>(const PuntoCartesiano &P) const{    //se lo facciamo come funzione standalone dobbiamo usare 2 oggetti come parametri (non potendo usare this)(vedi prima di private in .hpp)
+bool PuntoCartesiano::operator>(const PuntoCartesiano &P) const{
     PuntoCartesiano O (0,0);    //creiamo un punto origine
     return (this -> distanza(O) > P.distanza(O));   //true se e solo se la distanza tra P e O è minore rispetto a quella tra il primo punto (nel mio main P) e O
+}
+
+bool operator>(const PuntoCartesiano &P, const PuntoCartesiano &Q){     //se lo facciamo come funzione standalone dobbiamo usare 2 oggetti come parametri (non potendo usare this)(vedi prima di private in .hpp)
+    //...
+}
+
+ostream& operator<<(ostream &out,const PuntoCartesiano &P){    //out è il canale che viene riempito con gli oggetti che vengono mandati in stampa
+    out << "(" << P.x << "," << P.y << ")" << endl;
+    return out;
+}
+
+istream& operator>>(istream &in,PuntoCartesiano &P){   //in è il canale su cui vengono presi i dati (credo)
+    in >> P.x >> P.y;
+    return in;
 }
 
 int main(){
