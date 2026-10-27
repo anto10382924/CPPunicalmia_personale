@@ -46,7 +46,6 @@ double PuntoCartesiano::distanza(const PuntoCartesiano &P) const{
 /*void PuntoCartesiano::operator=(const PuntoCartesiano &Q){
     x=Q.x;  questo è quello di default
     y=Q.y;
-    cout << "operatore di =  ";
 };*/
 
 PuntoCartesiano& PuntoCartesiano::operator=(const PuntoCartesiano &P){   //modifichiamo l'operatore =, per riferimento per ottimizzare i costi
@@ -57,6 +56,18 @@ PuntoCartesiano& PuntoCartesiano::operator=(const PuntoCartesiano &P){   //modif
     return *this;   //stiamo returnando TUTTO l'oggetto P
 };
 
+bool PuntoCartesiano::operator==(const PuntoCartesiano &P) const{
+    /*if (this -> x != P.x || this -> y != P.y)
+        return false;
+    return true;*/
+    return (this -> x==P.x && this->y==P.y);
+}
+
+bool PuntoCartesiano::operator>(const PuntoCartesiano &P) const{    //se lo facciamo come funzione standalone dobbiamo usare 2 oggetti come parametri (non potendo usare this)(vedi prima di private in .hpp)
+    PuntoCartesiano O (0,0);    //creiamo un punto origine
+    return (this -> distanza(O) > P.distanza(O));   //true se e solo se la distanza tra P e O è minore rispetto a quella tra il primo punto (nel mio main P) e O
+}
+
 int main(){
     PuntoCartesiano P;  //prende i valori del costruttore di default
     PuntoCartesiano Q(3,4); //prende i valori tramite il secondo costruttore dell'hpp
@@ -64,6 +75,10 @@ int main(){
     P.stampaPunto();    //sintassi per l'uso dei metodi della classe!
     P=Q;  //assegnamento di defaut fra 2 oggetti, funziona attributo per attributo!!! (originale: P.operator=(Q);, noi l'abbiamo modificato per rendere plausibile P=Q=Z...)
     P=Q=R;  //da dx verso sx anche qua
+    if (P==Q)   //compila solo implementando il metodo operator==
+        cout << "sono uguali? \n";
+    if (P>Q)    //compila solo implementando il metodo operator>
+        cout << "è maggiore? \n"; 
     return 0;
 }
 
@@ -71,5 +86,7 @@ int main(){
     int x=3, y,z;
     z=y=x;
     tutti e tre gli interi diventano 3,= va da dx verso sx SEMPRE
-    con gli oggetti NON si può fare così di default, tocca usare il this
+    con gli oggetti NON si può fare così di default, tocca implementare il metodo operator=
+
+    OVERLOADING vuol dire creare funzioni con lo stesso nome ma parametri diversi, utile sopratutto con gli operators.
 */

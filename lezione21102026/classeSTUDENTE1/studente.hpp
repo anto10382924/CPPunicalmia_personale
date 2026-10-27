@@ -5,7 +5,7 @@
 class studente{
     private:
         int mat;
-        Data nascita;
+        Data nascita;   //questa è chiamata composizione
         int voti[25];
     public:
         studente();
