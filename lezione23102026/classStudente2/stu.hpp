@@ -1,11 +1,20 @@
 #ifndef STU_H
 #define STU_H
+#include <iostream>
 #include <string>
 using namespace std;
-
+class Esame;    //forward declaration, class è definita nell'altro file tanto
 const unsigned NUM_ESAMI = 24;
 
 class Stu{
+
+    //lezione del 28 ottobre 2026
+
+    friend ostream& operator<<(ostream&, const Stu&);
+    friend istream& operator>>(istream&, Stu &);
+    friend bool operator>(const Stu&, const Stu&);
+    friend bool operator<(const Stu& a, const Stu& b);
+
     private:
         string matricola;
         unsigned eta;
@@ -22,8 +31,8 @@ class Stu{
             for (int i=0;i<NUM_ESAMI;++i)
                 cfu_esami[i] = 0;
             
-        };
-        Stu(string s, unsigned e):matricola(s),eta(e){};
+        }
+        Stu(string s, unsigned e):matricola(s),eta(e){}
         Stu(const Stu &);
 
         //getter
@@ -53,6 +62,8 @@ class Stu{
         void rimuoviUltimoesame();
         float getMediaVoti() const;
         float getMediaPonderata() const;
+
+        Stu& operator+=(const Esame& e);
 };
 
 #endif

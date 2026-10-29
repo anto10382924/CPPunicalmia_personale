@@ -1,5 +1,28 @@
-#include <iostream>
 #include "stu.hpp"
+
+class Esame{
+    private:
+        string nome;
+        unsigned voto;
+        unsigned cfu;
+    public:
+        Esame(string n, unsigned v, unsigned c):nome(n),voto(v),cfu(c){}
+        Esame(const Esame & other){
+            nome = other.nome;
+            voto = other.voto;
+            cfu = other.cfu;
+        }
+
+        //getter
+        const string& getNome() const{return nome;} //per tipi composti meglio returnare un const &
+        unsigned getVoto() const{return voto;}
+        unsigned getCfu() const{return cfu;}
+        
+        //setter
+        void setNome(string n){nome = n;}
+        void setVoto(unsigned v){voto=v;}
+        void setCfu(unsigned c){cfu = c;}
+};
 
 Stu::Stu(const Stu &other):matricola(other.matricola),eta(other.eta),esami_sost(other.esami_sost){
     for (unsigned i=0; i < NUM_ESAMI; ++i){
@@ -126,6 +149,54 @@ string getMatricolaStudenteGiovaneEBravo(const Stu studenti[], unsigned numeroSt
         }
     }
     return migliore.getMatricola();
+}
+
+ostream& operator<<(ostream& out, const Stu& s){
+    out << s.matricola << s.eta << s.esami_sost << "\n";
+    for (unsigned i=0;i<s.esami_sost;++i){
+        out << s.nomi_esami[i] << s.voti_esami[i] << s.cfu_esami[i] << "\n";
+    }
+    return out;
+}
+
+istream& operator>>(istream& in, Stu & s){
+    in >> s.matricola >> s.eta >> s.esami_sost;
+    for (unsigned i=0;i<s.esami_sost;++i){
+        in >> s.nomi_esami[i] >> s.voti_esami[i] >> s.cfu_esami[i];
+    }
+    return in;
+}
+
+bool operator>(const Stu& a, const Stu& b){ //si può fare molto più rapidamente returnando direttamente > (vedi operator<)
+    if (a.eta > b.eta)
+        return true;
+    if (a.eta == b.eta && a.esami_sost > b.esami_sost)
+        return true;
+    if (a.eta == b.eta && a.esami_sost == b.esami_sost && a.matricola > b.matricola)    //qui confronta i caratteri ASCII delle stringhe, la "minore" sarà quella vera.
+        return true;
+    return false;
+}
+
+bool operator<(const Stu& a, const Stu& b){
+    if (a.eta != b.eta)
+        return a.eta < b.eta;
+    if (a.esami_sost != b.esami_sost)
+        return a.esami_sost < b.esami_sost;
+    if (a.matricola != b.matricola)
+        return a.matricola < b.matricola;
+    return true;    //se sono completamente uguali bohhh (aggiunta mia)
+}
+
+Stu& Stu::operator+=(const Esame& e){
+    if (esami_sost == NUM_ESAMI){
+        cout << "numero esami al massimo, restituisco lo stesso studente.";
+        return *this;
+    }
+    nomi_esami[esami_sost] = e.getNome();
+    voti_esami[esami_sost] = e.getVoto();
+    cfu_esami[esami_sost] = e.getCfu();
+    esami_sost ++;
+    return *this;
 }
 
 int main(){
