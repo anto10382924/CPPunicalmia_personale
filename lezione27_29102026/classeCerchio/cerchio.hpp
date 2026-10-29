@@ -13,9 +13,15 @@ class Cerchio{
     public:
         Cerchio()=default;
         Cerchio(const PuntoCartesiano &c, int r):centro(c),raggio(r){}
+        Cerchio(const Cerchio &other){
+            centro = other.centro;
+            raggio = other.raggio;
+        }
 
         const int getRaggio() const{return raggio;}
         const PuntoCartesiano getCentro() const;
+        void setRaggio(int r){raggio = r;}
+        void setCentro(PuntoCartesiano &c){centro = c;}
 };
 
 #endif

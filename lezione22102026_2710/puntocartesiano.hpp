@@ -9,6 +9,7 @@ class PuntoCartesiano{
     friend bool operator>(const PuntoCartesiano &, const PuntoCartesiano &);  //la funzione esterna alla classe viene riconosciuta "friend", può accedere direttamente ai dati privati della classe
     friend ostream& operator<<(ostream&,const PuntoCartesiano &);  //ostream è il tipo di cout
     friend istream& operator>>(istream &,PuntoCartesiano &);   //istream è il tipo di cin
+    friend PuntoCartesiano operator+(const PuntoCartesiano &, const PuntoCartesiano &);
 
     private:
         int x;
@@ -35,6 +36,21 @@ class PuntoCartesiano{
         //L'& nel datatype della funzione va messo in modo da non creare una copia dell'oggetto e quindi per effettivamente cambiarlo.
         bool operator==(const PuntoCartesiano &) const;
         bool operator>(const PuntoCartesiano &) const;
+        PuntoCartesiano& operator++(int){   //lezione del 29, l'int serve solo a far capire se è pre o post
+            ++ x;                         
+            ++ y;
+            return *this;   //tutto l'oggetto
+        }
+        PuntoCartesiano operator++(){   //post-incremento
+            PuntoCartesiano temp = *this;    //copiamo l'oggetto che stiamo modificando
+            ++(*this);      //invochiamo il metodo di prima
+            return temp;    //non abbiamo un riferimento al tipo di ritorno per questo, restituiamo una copia del PuntoCartesiano iniziale
+        }
+        PuntoCartesiano& operator+=(const PuntoCartesiano& other){
+            this -> x += other.x;
+            this -> y += other.y;
+            return *this;
+        }
 };
 
 #endif

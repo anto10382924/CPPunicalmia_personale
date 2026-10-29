@@ -81,6 +81,11 @@ istream& operator>>(istream &in,PuntoCartesiano &P){   //in è il canale su cui 
     return in;
 }
 
+PuntoCartesiano operator+(const PuntoCartesiano &P1,const PuntoCartesiano & P2){    //non per riferimento perchè returniamo un punto creato nuovo.
+    PuntoCartesiano P(P1.x+P2.x,P1.y+P2.y);
+    return P;
+}
+
 int main(){
     PuntoCartesiano P;  //prende i valori del costruttore di default
     PuntoCartesiano Q(3,4); //prende i valori tramite il secondo costruttore dell'hpp
