@@ -1,6 +1,6 @@
 #include "gestoretemperature.hpp"
 
-GestoreTemperature::GestoreTemperature():temperature(nullptr),dimensione(0){};
+GestoreTemperature::GestoreTemperature():temperature(nullptr),dimensione(0){}
 
 GestoreTemperature::GestoreTemperature(const int* temper, int dim):temperature(nullptr),dimensione(dim){
     setTemperature(temper,dim);
