@@ -1,13 +1,21 @@
-#include "dipendenti.hpp"
+#ifndef DIRIGENTE_HPP
+#define DIRIGENTE_HPP
 
-#ifndef DIPENDENTI_H
-#define DIPENDENTI_H
+#include "Dipendente.hpp"
 
-class Dirigente:public Dipendente{
-    private:
-        int Ncollaboratori;
-    public:
-        
+class Dirigente : public Dipendente {
+public:
+    Dirigente(const std::string& nome, const std::string& cognome,
+              double stipendioBase, int collaboratori);
+
+    int getCollaboratori() const;
+    void setCollaboratori(int collaboratori);
+
+    double stipendio() const;
+    void stampa() const;
+
+private:
+    int collaboratori;
 };
 
 #endif

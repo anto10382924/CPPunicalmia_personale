@@ -1,12 +1,22 @@
-#include "programmatore.hpp"
+#include "Programmatore.hpp"
 
-double Programmatore::stipendio() const{
-    return getStipendiobase() + (Nprogetti*100);
+#include <iostream>
+
+using namespace std;
+
+Programmatore::Programmatore(const string& nome, const string& cognome,
+                             double stipendioBase, int progetti)
+    : Dipendente(nome, cognome, stipendioBase), progetti(progetti) {}
+
+int Programmatore::getProgetti() const { return progetti; }
+void Programmatore::setProgetti(int progetti) { this->progetti = progetti; }
+
+double Programmatore::stipendio() const {
+    return Dipendente::stipendio() + 100 * progetti;
 }
 
-void Programmatore::stampa() const{
+void Programmatore::stampa() const {
+    cout << "[Programmatore] ";
     Dipendente::stampa();
-    cout << "Programmatore \n";
-    stipendio();
-    cout << "Ha svolto: " << Nprogetti << "progetti \n";
+    cout << " - stipendio: " << stipendio() << " - progetti: " << progetti;
 }
