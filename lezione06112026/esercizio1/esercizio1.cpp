@@ -64,18 +64,3 @@ class CentroNotifiche{
             return totale;
         }
 };
-
-int main(){
-
-    CentroNotifiche centro;
-    centro.aggiungi(new Email("mario@email.it", "Benvenuto!"));
-    centro.aggiungi(new Email("anna@email.it", "Fattura disponibile"));
-    centro.aggiungi(new SMS("3331234545", "Codice OTP: 4829"));
-    centro.aggiungi(new SMS("3331234568", "Codice OTP: 4828"));
-    centro.aggiungi(new SMS("3331294567", "Codice OTP: 4867"));
-    centro.aggiungi(new Push("user_99", "Hai un nuovo follower"));
-    centro.inviaTutte();
-    cout << centro.costoTotale();
-
-    return 0;
-}
